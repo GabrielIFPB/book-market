@@ -1,18 +1,18 @@
 package com.inteligenciadigital.bookmarket.models
 
 import java.time.LocalDate
-import java.util.*
+import java.util.UUID
 import javax.persistence.Column
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 
 data class Customer(
-	@Column(name = "name")
+	@Column(name = "name", length = 64, nullable = false)
 	var name: String,
 
 	@Column(name = "birthdate")
-	val birthdate: LocalDate
+	var birthdate: LocalDate
 ) {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
