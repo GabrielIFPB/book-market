@@ -2,11 +2,10 @@ package com.inteligenciadigital.bookmarket.models
 
 import java.time.LocalDate
 import java.util.UUID
-import javax.persistence.Column
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import javax.persistence.*
 
+@Entity
+@Table(name = "customer")
 data class Customer(
 	@Column(name = "name", length = 64, nullable = false)
 	var name: String,
