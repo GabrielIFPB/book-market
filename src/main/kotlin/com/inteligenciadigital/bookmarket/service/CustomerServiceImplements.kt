@@ -7,13 +7,11 @@ import org.springframework.stereotype.Service
 @Service
 class CustomerServiceImplements(var repository: CustomerRepository): CustomerService {
 
-	override fun all(): List<Customer> {
-		return this.repository.findAll()
-	}
+	override fun all(): List<Customer> =
+		this.repository.findAll()
 
-	override fun save(customer: Customer): Customer {
-		return this.repository.save(customer)
-	}
+	override fun save(customer: Customer): Customer =
+		this.repository.save(customer)
 
 	override fun update(customer: Customer): Customer {
 		TODO("Not yet implemented")
