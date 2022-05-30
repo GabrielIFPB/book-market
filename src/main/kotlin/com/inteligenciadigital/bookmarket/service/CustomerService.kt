@@ -10,7 +10,7 @@ interface CustomerService {
 
 	fun update(customer: Customer): Customer
 
-	fun delete(customer: Customer)
+	fun delete(id: Long)
 
 	fun findById(id: Long): Customer
 }
