@@ -16,7 +16,7 @@ data class Customer(
 ) {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	var id: Long? = null
+	var id: Long = 0
 
 	@Column(name = "uid", unique = true)
 	var uid: String = ""
