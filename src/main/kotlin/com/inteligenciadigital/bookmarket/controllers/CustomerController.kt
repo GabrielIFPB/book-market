@@ -1,5 +1,6 @@
 package com.inteligenciadigital.bookmarket.controllers
 
+import com.inteligenciadigital.bookmarket.exception.CustomerBadRequest
 import com.inteligenciadigital.bookmarket.exception.CustomerNotFoundException
 import com.inteligenciadigital.bookmarket.models.Customer
 import com.inteligenciadigital.bookmarket.service.CustomerServiceImplements
@@ -19,6 +20,18 @@ class CustomerController(var service: CustomerServiceImplements) {
 	@ResponseStatus(HttpStatus.CREATED)
 	fun save(@RequestBody customer: Customer): Customer =
 		this.service.save(customer)
+
+
+	@PutMapping("")
+	@ResponseStatus(HttpStatus.OK)
+	fun update(@RequestBody customer: Customer): Customer =
+		try {
+			this.service.update(customer)
+		} catch (e: CustomerNotFoundException) {
+			throw CustomerNotFoundException("não encontrado")
+		} catch (e: CustomerBadRequest) {
+			throw CustomerBadRequest(e.message.toString())
+		}
 
 	
 	@DeleteMapping("/{id}")
