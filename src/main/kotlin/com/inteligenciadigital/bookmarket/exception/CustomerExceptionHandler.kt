@@ -13,17 +13,25 @@ import java.sql.Timestamp
 class CustomerExceptionHandler: ResponseEntityExceptionHandler() {
 
 	@ExceptionHandler(value = [CustomerNotFoundException::class])
-	fun correntistaBadRequest(e: CustomerNotFoundException): ResponseEntity<Any?>? =
+	fun customerNotFoundException(e: CustomerNotFoundException): ResponseEntity<Any?>? =
 		ResponseEntity(
-			this.constructHandlerException(e),
+			this.constructHandlerException(e, HttpStatus.NOT_FOUND),
 			HttpStatus.NOT_FOUND
 		)
 
-	private fun constructHandlerException(e: RuntimeException): ModelException =
+	@ExceptionHandler(value = [CustomerBadRequest::class])
+	fun customerBadRequestException(e: CustomerBadRequest): ResponseEntity<Any?>? =
+		ResponseEntity(
+			this.constructHandlerException(e, HttpStatus.BAD_REQUEST),
+			HttpStatus.BAD_REQUEST
+		)
+
+	private fun constructHandlerException
+				(e: RuntimeException, httpStatus: HttpStatus): ModelException =
 		ModelException.Builder()
 			.message(e.message.toString())
-			.httpStatus(HttpStatus.NOT_FOUND)
-			.status(HttpStatus.NOT_FOUND.value())
+			.httpStatus(httpStatus)
+			.status(httpStatus.value())
 			.timestamp(Timestamp(System.currentTimeMillis()))
 			.build()
 }
