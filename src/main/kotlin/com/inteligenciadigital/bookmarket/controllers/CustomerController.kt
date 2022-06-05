@@ -2,8 +2,9 @@ package com.inteligenciadigital.bookmarket.controllers
 
 import com.inteligenciadigital.bookmarket.exception.CustomerBadRequest
 import com.inteligenciadigital.bookmarket.exception.CustomerNotFoundException
-import com.inteligenciadigital.bookmarket.extensions.convertStringToLocalDate
 import com.inteligenciadigital.bookmarket.models.Customer
+import com.inteligenciadigital.bookmarket.models.CustomerBirthdate
+import com.inteligenciadigital.bookmarket.models.CustomerName
 import com.inteligenciadigital.bookmarket.service.CustomerServiceImplements
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -32,13 +33,26 @@ class CustomerController(var service: CustomerServiceImplements) {
 			throw CustomerBadRequest(e.message.toString())
 		}
 
-	@PatchMapping("/{id}/{birthdate}")
+	@PatchMapping("/{id}/birthdate")
 	@ResponseStatus(HttpStatus.OK)
-	fun updateBirthdate(@PathVariable id: Long, @PathVariable birthdate: String): Int =
+	fun updateBirthdate(
+			@PathVariable id: Long,
+				@RequestBody customerRequest: CustomerBirthdate): Int =
 		try {
 			this.service.updateBirthdate(
-				id, convertStringToLocalDate(birthdate)
+				id, customerRequest.birthdate
 			)
+		} catch (e: CustomerNotFoundException) {
+			throw CustomerNotFoundException("Customer ${id}: not found!")
+		}
+
+	@PatchMapping("/{id}/name")
+	@ResponseStatus(HttpStatus.OK)
+	fun updateName(
+			@PathVariable id: Long,
+				@RequestBody customerRequest: CustomerName): Int =
+		try {
+			this.service.updateName(id, customerRequest.name)
 		} catch (e: CustomerNotFoundException) {
 			throw CustomerNotFoundException("Customer ${id}: not found!")
 		}
