@@ -17,6 +17,14 @@ class CustomerController(var service: CustomerServiceImplements) {
 	@GetMapping("")
 	fun findAll(): List<Customer> = this.service.all()
 
+	@GetMapping("/{id}")
+	fun findById(@PathVariable id: Long): Customer =
+		try {
+			this.service.findById(id)
+		} catch (e: CustomerNotFoundException) {
+			throw CustomerNotFoundException("Não encontrado...")
+		}
+
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
 	fun save(@RequestBody customer: Customer): Customer =

@@ -14,6 +14,11 @@ class CustomerServiceImplements(var repository: CustomerRepository): CustomerSer
 
 	override fun all(): List<Customer> =
 		this.repository.findAll()
+
+	override fun findById(id: Long): Customer {
+		val customer = repository.findById(id)
+		return customer.orElseThrow { CustomerNotFoundException("NOT_FOUND...") }
+	}
     
 	override fun save(customer: Customer): Customer =
 		this.repository.save(customer)
@@ -39,9 +44,4 @@ class CustomerServiceImplements(var repository: CustomerRepository): CustomerSer
   
 	override fun delete(id: Long): Unit =
 		this.repository.delete(this.findById(id))
-
-	override fun findById(id: Long): Customer {
-		val customer = repository.findById(id)
-		return customer.orElseThrow { CustomerNotFoundException("NOT_FOUND...") }
-	}
 }
