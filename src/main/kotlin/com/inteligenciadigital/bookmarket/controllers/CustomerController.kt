@@ -2,6 +2,7 @@ package com.inteligenciadigital.bookmarket.controllers
 
 import com.inteligenciadigital.bookmarket.exception.CustomerBadRequest
 import com.inteligenciadigital.bookmarket.exception.CustomerNotFoundException
+import com.inteligenciadigital.bookmarket.extensions.convertStringToLocalDate
 import com.inteligenciadigital.bookmarket.models.Customer
 import com.inteligenciadigital.bookmarket.service.CustomerServiceImplements
 import org.springframework.http.HttpStatus
@@ -33,8 +34,20 @@ class CustomerController(var service: CustomerServiceImplements) {
 			throw CustomerBadRequest(e.message.toString())
 		}
 
+	@PatchMapping("/{id}/{birthdate}")
+	@ResponseStatus(HttpStatus.OK)
+	fun updateBirthdate(@PathVariable id: Long, @PathVariable birthdate: String): Int =
+		try {
+			this.service.updateBirthdate(
+				id, convertStringToLocalDate(birthdate)
+			)
+		} catch (e: CustomerNotFoundException) {
+			throw CustomerNotFoundException("Customer ${id}: not found!")
+		}
+
 	
 	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	fun delete(@PathVariable id: Long): Unit =
 		try {
 			this.service.delete(id)

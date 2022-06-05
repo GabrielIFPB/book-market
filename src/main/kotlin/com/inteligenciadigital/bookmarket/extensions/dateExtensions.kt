@@ -12,7 +12,7 @@ import java.util.*
  * @param: dateString format 0000-00-00 year-month-dayOfMonth
  * @return: LocalDate
  */
-fun convertStringForLocalDate(dateString: String): LocalDate {
+fun convertStringToLocalDate(dateString: String): LocalDate {
 	val data = dateString.split("-").map { it.trim().toInt() }
 	return LocalDate.of(data[0], data[1], data[2])
 }
