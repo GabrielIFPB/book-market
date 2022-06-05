@@ -15,4 +15,8 @@ interface CustomerRepository: JpaRepository<Customer, Long> {
 	@Query("UPDATE Customer c set c.birthdate = :birthdate WHERE c.id = :id")
 	fun updateBirthdate(@Param("id") id: Long, @Param("birthdate") birthdate: LocalDate): Int
 
+	@Modifying
+	@Query("UPDATE Customer c set c.name = :name WHERE c.id = :id")
+	fun updateName(@Param("id") id: Long, @Param("name") name: String): Int
+
 }
