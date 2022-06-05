@@ -13,6 +13,8 @@ interface CustomerService {
 
 	fun updateBirthdate(id: Long, birthdate: LocalDate): Int
 
+	fun updateName(id: Long, name: String): Int
+
 	fun delete(id: Long)
 
 	fun findById(id: Long): Customer

@@ -30,6 +30,12 @@ class CustomerServiceImplements(var repository: CustomerRepository): CustomerSer
 		this.findById(id).let {
 			this.repository.updateBirthdate(id, birthdate)
 		}
+
+	@Transactional
+	override fun updateName(id: Long, name: String): Int =
+		this.findById(id).let {
+			this.repository.updateName(id, name)
+		}
   
 	override fun delete(id: Long): Unit =
 		this.repository.delete(this.findById(id))
