@@ -1,6 +1,7 @@
 package com.inteligenciadigital.bookmarket.service
 
 import com.inteligenciadigital.bookmarket.models.Customer
+import java.time.LocalDate
 
 interface CustomerService {
 
@@ -9,6 +10,8 @@ interface CustomerService {
 	fun save(customer: Customer): Customer
 
 	fun update(customer: Customer): Customer
+
+	fun updateBirthdate(id: Long, birthdate: LocalDate): Int
 
 	fun delete(id: Long)
 
