@@ -31,7 +31,7 @@ data class Customer(
 		if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
 		other as Customer
 
-		return id != null && id == other.id
+		return id == other.id
 	}
 
 	override fun hashCode(): Int = javaClass.hashCode()
@@ -41,3 +41,12 @@ data class Customer(
 		return this::class.simpleName + "(id = $id , name = $name , birthdate = $birthdate , uid = $uid )"
 	}
 }
+
+// objects for requests parameters
+data class CustomerBirthdate(
+	var birthdate: LocalDate,
+) {}
+
+data class CustomerName(
+	var name: String,
+) {}
