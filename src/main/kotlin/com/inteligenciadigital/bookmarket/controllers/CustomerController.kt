@@ -16,12 +16,10 @@ class CustomerController(var service: CustomerServiceImplements) {
 	@GetMapping("")
 	fun findAll(): List<Customer> = this.service.all()
 
-
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
 	fun save(@RequestBody customer: Customer): Customer =
 		this.service.save(customer)
-
 
 	@PutMapping("")
 	@ResponseStatus(HttpStatus.OK)
@@ -44,7 +42,6 @@ class CustomerController(var service: CustomerServiceImplements) {
 		} catch (e: CustomerNotFoundException) {
 			throw CustomerNotFoundException("Customer ${id}: not found!")
 		}
-
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
